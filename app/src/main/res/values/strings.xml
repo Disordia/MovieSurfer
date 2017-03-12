@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MovieSurfer</string>
+    <string name="detail_tool_title">Detail</string>
 </resources>

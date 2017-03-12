@@ -15,6 +15,22 @@ public class FilmInfo {
         private String mExtra1;                                 //for future use
         private String mExtra2;                                 //for future use
 
+        public FilmInfo(String url, String title, String downloadUrlsInfo, String downloadUrls, String coverImgUrl, String date, String scoreInfo, String extra1, String extra2) {
+                mUrl = url;
+                mTitle = title;
+                mDownloadUrlsInfo = downloadUrlsInfo;
+                mDownloadUrls = downloadUrls;
+                mCoverImgUrl = coverImgUrl;
+                mDate = date;
+                mScoreInfo = scoreInfo;
+                mExtra1 = extra1;
+                mExtra2 = extra2;
+        }
+
+        public FilmInfo() {
+
+        }
+
 
         public String getUrl() {
                 return mUrl;

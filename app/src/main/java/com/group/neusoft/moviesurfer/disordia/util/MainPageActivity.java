@@ -2,8 +2,12 @@ package com.group.neusoft.moviesurfer.disordia.util;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.group.neusoft.moviesurfer.R;
 
@@ -12,6 +16,8 @@ import com.group.neusoft.moviesurfer.R;
  */
 
 public class MainPageActivity extends AppCompatActivity {
+    private DrawerLayout mDrawerLayout;
+
 
     private void initView(){
         FragmentManager fragmentManager=getFragmentManager();
@@ -21,6 +27,14 @@ public class MainPageActivity extends AppCompatActivity {
             filmListFragment=new FilmListFragment();
             fragmentManager.beginTransaction().add(R.id.fragment_container,filmListFragment).commit();
         }
+        mDrawerLayout= (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        ((NavigationView)findViewById(R.id.main_navigation)).setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mDrawerLayout.closeDrawers();
+                return true;
+            }
+        });
     }
 
     @Override

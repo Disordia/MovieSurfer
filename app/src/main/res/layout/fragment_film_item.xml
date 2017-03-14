@@ -11,11 +11,23 @@
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="150dp">
+
         <ImageView
             android:scaleType="centerCrop"
             android:id="@+id/film.item.cover"
+            android:background="@color/colorGray"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/film.item.score"
+            android:layout_gravity="top"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:textSize="10sp"
+            android:layout_height="14dp"
+            android:background="@color/color_title"
+            tools:text="IBMN x/x"
+            />
         <TextView
             android:id="@+id/film.item.title"
             android:layout_gravity="bottom"

@@ -1,9 +1,10 @@
 package com.group.neusoft.moviesurfer.disordia.util;
 
-import android.app.Fragment;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,16 +40,22 @@ public class FilmListFragment extends Fragment {
         return info;
     }
 
-    private void updateUI(){
-        FilmLab filmLab=FilmLab.get(getActivity());
-        List<FilmInfo> filmInfos=filmLab.getFilmInfos();
-        mFilmItemAdapter=new FilmItemAdapter(filmInfos);
-        mFilmRecyclerView.setAdapter(mFilmItemAdapter);
+    public void updateUI(){
+        mFilmItemAdapter=new FilmItemAdapter();
+        FilmLab.getInstance(getActivity()).GetFilmInfoAsync(mFilmRecyclerView,mFilmItemAdapter);
+        //mFilmRecyclerView.setAdapter(mFilmItemAdapter);
     }
 
 
     @Override
+    public void onAttach(Context context) {
+        LogUtil.print("on Attach");
+        super.onAttach(context);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LogUtil.print("on create View");
         View filmListView=inflater.inflate(R.layout.fragment_flim_list,container,false);
         mFilmRecyclerView= (RecyclerView) filmListView.findViewById(R.id.film_item_list);
         mFilmRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
@@ -63,12 +70,14 @@ public class FilmListFragment extends Fragment {
         CardView mCardView;
         FilmInfo mFilmInfo;
         NetHelper mNetHelper;
+        TextView mScoreTextView;
         public FilmItemHolder(View itemView) {
             super(itemView);
-            mNetHelper=new NetHelper();
+            mNetHelper=NetHelper.getInstance();
             mTitleTextView= (TextView) itemView.findViewById(R.id.film_item_title);
             mCardView= (CardView) itemView.findViewById(R.id.film_item_card);
             mCoverImageView= (ImageView) itemView.findViewById(R.id.film_item_cover);
+            mScoreTextView= (TextView) itemView.findViewById(R.id.film_item_score);
             mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -80,20 +89,28 @@ public class FilmListFragment extends Fragment {
             });
         }
 
+
         public void OnBind(FilmInfo filmInfo){
-            //mCoverImageView.setImageDrawable(getResources().getDrawable(R.drawable.ass));
-            mNetHelper.FillImageView(filmInfo.getCoverImgUrl(),mCoverImageView);
-            mTitleTextView.setText(filmInfo.getTitle());
+            //mCoverImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_download));
+            if(filmInfo.getCoverImgUrl()!=null)
+                mNetHelper.FillImageView(filmInfo.getCoverImgUrl(),mCoverImageView);
+            if(filmInfo.getTitle()!=null)
+                mTitleTextView.setText(filmInfo.getTitle());
+            if(filmInfo.getScoreInfo()!=null)
+                mScoreTextView.setText(filmInfo.getScoreInfo());
             mFilmInfo=filmInfo;
         }
 
     }
 
-    private class FilmItemAdapter extends RecyclerView.Adapter<FilmItemHolder>{
+    public class FilmItemAdapter extends RecyclerView.Adapter<FilmItemHolder>{
         private List<FilmInfo> mFilmInfos;
+        public FilmItemAdapter(){
 
-        public FilmItemAdapter(List<FilmInfo> filmInfos){
-            mFilmInfos=filmInfos;
+        }
+
+        public void setFilmInfos(List<FilmInfo> filmInfos) {
+            mFilmInfos = filmInfos;
         }
 
         @Override
@@ -112,7 +129,10 @@ public class FilmListFragment extends Fragment {
         @Override
         public int getItemCount() {
             //LogUtil.print("mFilmInfos.size()"+mFilmInfos.size());
-            return mFilmInfos.size();
+            if(mFilmInfos!=null) {
+                return mFilmInfos.size();
+            }
+            return 0;
         }
     }
 

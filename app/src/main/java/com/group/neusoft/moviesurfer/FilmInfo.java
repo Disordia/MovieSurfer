@@ -31,6 +31,11 @@ public class FilmInfo {
 
         }
 
+        @Override
+        public boolean equals(Object obj) {
+                return this.getUrl().equals(((FilmInfo)obj).getUrl());
+        }
+
 
         public String getUrl() {
                 return mUrl;
@@ -109,5 +114,8 @@ public class FilmInfo {
                 mDownloadUrls = downloadUrls;
         }
 
-
+        @Override
+        public String toString() {
+                return mUrl+";"+mTitle+";"+mCoverImgUrl+";"+mDate+";"+mExtra2;
+        }
 }

@@ -3,8 +3,10 @@ package com.group.neusoft.moviesurfer.disordia.util;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
@@ -47,6 +49,7 @@ public class MainPageActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
 
     public static final String BroadCastAction="com.neusoft.group.disordia.refresh_main_view";
+    public static final String TabLayoutClickIndex="com.neusoft.group.disordia.click_index";
 
     private void initView(){
         mDrawerLayout= (DrawerLayout) findViewById(R.id.main_drawer_layout);
@@ -83,9 +86,9 @@ public class MainPageActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         //init login helper:
+        registerLocalBroadcastReceiver();
         mLoginHelper=LoginHelper.getLoginHelper(MainPageActivity.this);
         UpdateUserInfo();
-        registerLocalBroadcastReceiver();
 
     }
 
@@ -106,7 +109,14 @@ public class MainPageActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         initView();
+        if(savedInstanceState!=null) {
+            int tabPosition = savedInstanceState.getInt(TabLayoutClickIndex);
+            mViewPager.setCurrentItem(tabPosition, false);
+        }
     }
+
+
+
 
     @Override
     protected void onResume() {
@@ -178,4 +188,16 @@ public class MainPageActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(TabLayoutClickIndex,mTabLayout.getSelectedTabPosition());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        int tabPosition=savedInstanceState.getInt(TabLayoutClickIndex);
+        mViewPager.setCurrentItem(tabPosition,false);
+    }
 }

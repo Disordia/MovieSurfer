@@ -15,20 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 17/3/13 by ofj
- * 使用：
- * 1. 建立收藏功能数据库表 ：FilmCollection.get(getApplication(),FilmCollection.TYPE_COLLECTION)
- *    建立历史记录数据库表 ：FilmCollection.get(getApplication(),FilmCollection.TYPE_HISTORY)
- * 2. FilmCollection.get(getApplication(),type).addCollection(FilmInfo filmInfo):void
- *    FilmCollection.get(getApplication(),type).deleteCollection(String url):void
- *    FilmCollection.get(getApplication(),type).getCollection(String url):FilmInfo
- *    FilmCollection.get(getApplication(),type).updateCollection(FilmInfo filmInfo):void
- *    FilmCollection.get(getApplication(),type).getCollections():List<FilmInfo>
+ * Created by ttc on 2017/3/14.
  */
-public class FilmCollection {
+
+public class FilmHistory {
     public static final String TYPE_COLLECTION = "collection";
     public static final String TYPE_HISTORY = "history";
-    private static FilmCollection sFilmCollection;
+    private static FilmHistory sFilmCollection;
     private static String table;
     private static String table_url;
     private static List<FilmInfo> history_collection = new ArrayList<>();
@@ -38,14 +31,14 @@ public class FilmCollection {
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
-    public static FilmCollection get(Context context) {
+    public static FilmHistory get(Context context) {
         if (sFilmCollection == null) {
-            sFilmCollection = new FilmCollection(context,FilmCollection.TYPE_COLLECTION);
+            sFilmCollection = new FilmHistory(context,FilmHistory.TYPE_HISTORY);
         }
         return sFilmCollection;
     }
 
-    private FilmCollection(Context context,String type) {
+    private FilmHistory(Context context,String type) {
         mContext = context.getApplicationContext();
         if(type == TYPE_COLLECTION) {
             mDatabase = new CollectionBaseHelper(mContext)
@@ -71,8 +64,8 @@ public class FilmCollection {
             if(table == CollectionDbSchema.CollectionTable.NAME){
                 if(history_collection.size() <MAX_HISTORY){
 
-                        history_collection.add(history_tag, filmInfo);
-                        history_tag++;
+                    history_collection.add(history_tag, filmInfo);
+                    history_tag++;
 
                 }else {
                     history_tag = 0;
@@ -175,5 +168,4 @@ public class FilmCollection {
         );
         return new CollectionCursorWrapper(cursor);
     }
-
 }

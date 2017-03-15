@@ -1,9 +1,7 @@
 package com.group.neusoft.moviesurfer.disordia.util;
 
-
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -19,16 +17,16 @@ import com.alibaba.fastjson.JSON;
 import com.group.neusoft.moviesurfer.FilmInfo;
 import com.group.neusoft.moviesurfer.FilmSurferApplication;
 import com.group.neusoft.moviesurfer.R;
+import com.group.neusoft.moviesurfer.ofj.databaseHelper.FilmCollection;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
- * Created by ttc on 2017/3/12.
+ * Created by ttc on 2017/3/14.
  */
 
-public class FilmListFragment extends Fragment {
-
+public class CollctionFragment  extends Fragment{
     private FilmItemAdapter mFilmItemAdapter;
     RecyclerView mFilmRecyclerView;
     public static final String INTENT_TAG="com.group.neusoft.moviesurfer.filmlistintent";
@@ -43,12 +41,21 @@ public class FilmListFragment extends Fragment {
         return info;
     }
 
+
     public void updateUI(){
         mFilmItemAdapter=new FilmItemAdapter();
-        FilmLab.getInstance(getActivity()).GetFilmInfoAsync(mFilmRecyclerView,mFilmItemAdapter);
-        //mFilmRecyclerView.setAdapter(mFilmItemAdapter);
+        List<FilmInfo> infos=FilmCollection.get(getActivity()).getCollections();
+        //LogUtil.print("the collection:"+infos.size());
+        mFilmItemAdapter.setFilmInfos(infos);
+        mFilmRecyclerView.setAdapter(mFilmItemAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+        //LogUtil.print("Collection on Resume");
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -92,12 +99,11 @@ public class FilmListFragment extends Fragment {
             });
         }
 
-
         public void OnBind(FilmInfo filmInfo){
             //mCoverImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_download));
             if(filmInfo.getCoverImgUrl()!=null) {
-                //mNetHelper.FillImageView(filmInfo.getCoverImgUrl(), mCoverImageView);
                 Picasso.with(FilmSurferApplication.getContextObject()).load(filmInfo.getCoverImgUrl()).into(mCoverImageView);
+                //mNetHelper.FillImageView(filmInfo.getCoverImgUrl(), mCoverImageView);
             }
             if(filmInfo.getTitle()!=null)
                 mTitleTextView.setText(filmInfo.getTitle());
@@ -111,7 +117,6 @@ public class FilmListFragment extends Fragment {
     public class FilmItemAdapter extends RecyclerView.Adapter<FilmItemHolder>{
         private List<FilmInfo> mFilmInfos;
         public FilmItemAdapter(){
-
         }
 
         public void setFilmInfos(List<FilmInfo> filmInfos) {
@@ -140,5 +145,4 @@ public class FilmListFragment extends Fragment {
             return 0;
         }
     }
-
 }

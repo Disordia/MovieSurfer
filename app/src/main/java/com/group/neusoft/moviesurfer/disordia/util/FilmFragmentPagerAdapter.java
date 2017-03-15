@@ -17,13 +17,14 @@ import com.group.neusoft.moviesurfer.R;
 
 public class FilmFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[]{"Home","Collect","Other"};
+    private String tabTitles[] = new String[]{"Home","Collect","History"};
     private Context mContext;
     private int[] imageResId = {
             R.drawable.ic_home,
             R.drawable.ic_collection,
             R.drawable.ic_history
     };
+
 
     public FilmFragmentPagerAdapter(FragmentManager fm,Context context) {
         super(fm);
@@ -33,8 +34,11 @@ public class FilmFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         LogUtil.print(position+"tapped");
-        if(position==1|position==2){
-            return new EmptyFragment();
+        if(position==1){
+            return new CollctionFragment();
+        }
+        if(position==2){
+            return new HistoryFragment();
         }
         return new FilmListFragment();
     }

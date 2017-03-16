@@ -67,6 +67,7 @@
     <!--</FrameLayout>-->
     </android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.NavigationView
+        android:background="@color/colorGray"
         android:id="@+id/main_nav"
         android:layout_width="200dp"
         android:layout_height="match_parent"

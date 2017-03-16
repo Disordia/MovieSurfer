@@ -8,7 +8,7 @@
           android:id="@+id/detail.uncollect"
           app:showAsAction="always"/>
     <item android:title="Collection"
-          android:icon="@drawable/ic_action_uncollect"
+          android:icon="@drawable/ic_action_unshare"
           android:id="@+id/detail.collect"
           app:showAsAction="always"/>
     <item android:title="Share"

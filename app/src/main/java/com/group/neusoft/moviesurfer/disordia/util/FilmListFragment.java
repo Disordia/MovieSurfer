@@ -19,8 +19,10 @@ import com.alibaba.fastjson.JSON;
 import com.group.neusoft.moviesurfer.FilmInfo;
 import com.group.neusoft.moviesurfer.FilmSurferApplication;
 import com.group.neusoft.moviesurfer.R;
+import com.group.neusoft.moviesurfer.coco.Settings;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,8 +31,9 @@ import java.util.List;
 
 public class FilmListFragment extends Fragment {
 
+    private View filmListView;
     private FilmItemAdapter mFilmItemAdapter;
-    RecyclerView mFilmRecyclerView;
+    static RecyclerView mFilmRecyclerView;
     public static final String INTENT_TAG="com.group.neusoft.moviesurfer.filmlistintent";
 
     public static FilmInfo getFilmInfo(Intent i){
@@ -45,7 +48,7 @@ public class FilmListFragment extends Fragment {
 
     public void updateUI(){
         mFilmItemAdapter=new FilmItemAdapter();
-        FilmLab.getInstance(getActivity()).GetFilmInfoAsync(mFilmRecyclerView,mFilmItemAdapter);
+        FilmLab.getInstance(getActivity()).GetFilmInfoAsync(mFilmRecyclerView,mFilmItemAdapter,false);
         //mFilmRecyclerView.setAdapter(mFilmItemAdapter);
     }
 
@@ -59,11 +62,30 @@ public class FilmListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.print("on create View");
-        View filmListView=inflater.inflate(R.layout.fragment_flim_list,container,false);
+        filmListView=inflater.inflate(R.layout.fragment_flim_list,container,false);
         mFilmRecyclerView= (RecyclerView) filmListView.findViewById(R.id.film_item_list);
         mFilmRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         updateUI();
         return filmListView;
+    }
+
+    public void SearchItem(String s) {
+        if(s==null){
+            mFilmItemAdapter=new FilmItemAdapter();
+            mFilmRecyclerView.setAdapter(mFilmItemAdapter);
+            FilmLab.getInstance(getActivity()).GetFilmInfoAsync(mFilmRecyclerView,mFilmItemAdapter,false);
+            return;
+        }
+        if(s.isEmpty()){
+            LogUtil.print("refresh view");
+            mFilmItemAdapter=new FilmItemAdapter();
+            mFilmRecyclerView.setAdapter(mFilmItemAdapter);
+            FilmLab.getInstance(getActivity()).GetFilmInfoAsync(mFilmRecyclerView,mFilmItemAdapter,true);
+        }else {
+            mFilmItemAdapter=new FilmItemAdapter();
+            mFilmRecyclerView.setAdapter(mFilmItemAdapter);
+            FilmLab.getInstance(getActivity()).SearchFilmAsync(mFilmRecyclerView, mFilmItemAdapter, s);
+        }
     }
 
 
@@ -97,7 +119,8 @@ public class FilmListFragment extends Fragment {
             //mCoverImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_download));
             if(filmInfo.getCoverImgUrl()!=null) {
                 //mNetHelper.FillImageView(filmInfo.getCoverImgUrl(), mCoverImageView);
-                Picasso.with(FilmSurferApplication.getContextObject()).load(filmInfo.getCoverImgUrl()).into(mCoverImageView);
+                if(Settings.isListloadPic())
+                    Picasso.with(FilmSurferApplication.getContextObject()).load(filmInfo.getCoverImgUrl()).into(mCoverImageView);
             }
             if(filmInfo.getTitle()!=null)
                 mTitleTextView.setText(filmInfo.getTitle());
@@ -111,7 +134,7 @@ public class FilmListFragment extends Fragment {
     public class FilmItemAdapter extends RecyclerView.Adapter<FilmItemHolder>{
         private List<FilmInfo> mFilmInfos;
         public FilmItemAdapter(){
-
+            mFilmInfos=new ArrayList<>();
         }
 
         public void setFilmInfos(List<FilmInfo> filmInfos) {
@@ -129,6 +152,14 @@ public class FilmListFragment extends Fragment {
         public void onBindViewHolder(FilmItemHolder holder, int position) {
             FilmInfo filmInfo=mFilmInfos.get(position);
             holder.OnBind(filmInfo);
+            if(position==getItemCount()-1){
+                loadMoreData();
+            }
+        }
+
+        private void loadMoreData() {
+            LogUtil.print("load more data");
+            FilmLab.getInstance(getActivity()).GetFilmInfoAsyncMore(mFilmRecyclerView,mFilmItemAdapter);
         }
 
         @Override
@@ -140,5 +171,7 @@ public class FilmListFragment extends Fragment {
             return 0;
         }
     }
+
+
 
 }

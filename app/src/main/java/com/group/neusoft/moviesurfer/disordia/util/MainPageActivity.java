@@ -3,10 +3,7 @@ package com.group.neusoft.moviesurfer.disordia.util;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
@@ -16,19 +13,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.support.v4.app.FragmentManager;
+
 import com.group.neusoft.moviesurfer.R;
 import com.group.neusoft.moviesurfer.coco.LoginHelper;
-import com.tencent.connect.common.Constants;
-
-import java.util.concurrent.Semaphore;
+import com.group.neusoft.moviesurfer.coco.SettingsActivity;
+import com.group.neusoft.moviesurfer.juneljq.NewFilmIntentService;
 
 /**
  * Created by ttc on 2017/3/12.
@@ -70,6 +65,11 @@ public class MainPageActivity extends AppCompatActivity {
                         mViewPager.setCurrentItem(2,true);
                         break;
                     }
+                    case R.id.main_navigation_settings:{
+                        Intent i=new Intent(MainPageActivity.this, SettingsActivity.class);
+                        startActivity(i);
+                        break;
+                    }
                 }
                 mDrawerLayout.closeDrawers();
                 return false;
@@ -108,6 +108,7 @@ public class MainPageActivity extends AppCompatActivity {
         mViewPager.setAdapter(mFilmFragmentPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        NewFilmIntentService.setServiceAlarm(getApplicationContext(), true);
         initView();
         if(savedInstanceState!=null) {
             int tabPosition = savedInstanceState.getInt(TabLayoutClickIndex);
@@ -133,19 +134,35 @@ public class MainPageActivity extends AppCompatActivity {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                updateItems(s);
+                searchItems(s);
                 return true;
             }
             @Override
             public boolean onQueryTextChange(String s) {
+                if(s.isEmpty()){
+                    searchItems(null);
+                }
                 return false;
             }
         });
         return true;
     }
 
-    private void updateItems(String s) {
-        LogUtil.print("update items");
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.main_toobar_refresh:{
+                searchItems("");
+                break;
+            }
+        }
+        return false;
+    }
+
+    private void searchItems(String s) {
+        mViewPager.setCurrentItem(0,true);
+        ((FilmListFragment) mFilmFragmentPagerAdapter.getItem(0)).SearchItem(s);
+        LogUtil.print("searching items:"+s);
     }
 
 

@@ -19,6 +19,7 @@ public class FilmFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
     private String tabTitles[] = new String[]{"Home","Collect","History"};
     private Context mContext;
+    private FilmListFragment mFilmListFragment;
     private int[] imageResId = {
             R.drawable.ic_home,
             R.drawable.ic_collection,
@@ -29,6 +30,7 @@ public class FilmFragmentPagerAdapter extends FragmentPagerAdapter {
     public FilmFragmentPagerAdapter(FragmentManager fm,Context context) {
         super(fm);
         mContext=context;
+        mFilmListFragment=new FilmListFragment();
     }
 
     @Override
@@ -40,7 +42,7 @@ public class FilmFragmentPagerAdapter extends FragmentPagerAdapter {
         if(position==2){
             return new HistoryFragment();
         }
-        return new FilmListFragment();
+        return mFilmListFragment;
     }
 
     @Override

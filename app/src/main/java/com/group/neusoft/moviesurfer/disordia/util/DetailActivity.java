@@ -1,5 +1,6 @@
 package com.group.neusoft.moviesurfer.disordia.util;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.group.neusoft.moviesurfer.FilmInfo;
 import com.group.neusoft.moviesurfer.FilmSurferApplication;
 import com.group.neusoft.moviesurfer.R;
 import com.group.neusoft.moviesurfer.coco.LoginHelper;
+import com.group.neusoft.moviesurfer.juneljq.NewFilmIntentService;
 import com.group.neusoft.moviesurfer.ofj.databaseHelper.FilmCollection;
 import com.group.neusoft.moviesurfer.ofj.databaseHelper.FilmHistory;
 import com.squareup.picasso.Picasso;
@@ -130,5 +132,7 @@ public class DetailActivity extends AppCompatActivity {
         return false;
     }
 
-
+    public static Intent newIntent(Context context) {
+        return new Intent(context, DetailActivity.class);
+    }
 }

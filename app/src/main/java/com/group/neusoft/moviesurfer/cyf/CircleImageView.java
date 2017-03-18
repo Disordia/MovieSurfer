@@ -1,4 +1,4 @@
-package com.group.neusoft.moviesurfer.disordia.util;
+package com.group.neusoft.moviesurfer.cyf;
 
 
 import android.content.Context;

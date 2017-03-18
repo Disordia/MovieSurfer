@@ -170,8 +170,13 @@ public class MainPageActivity extends AppCompatActivity {
         if(!mLoginHelper.IsUserLogin()) {
             mLoginHelper.QQlogin();
         }else {
-
+            mLoginHelper.LogOut();
+            if(mNavigationView.getHeaderView(0).findViewById(R.id.user_name)!=null)
+                ((TextView) mNavigationView.getHeaderView(0).findViewById(R.id.user_name)).setText("login");
+            if(mNavigationView.getHeaderView(0).findViewById(R.id.user_header)!=null)
+                ((ImageView)mNavigationView.getHeaderView(0).findViewById(R.id.user_header)).setImageDrawable(getResources().getDrawable(R.drawable.head));
         }
+
     }
 
     public void UpdateUserInfo(){

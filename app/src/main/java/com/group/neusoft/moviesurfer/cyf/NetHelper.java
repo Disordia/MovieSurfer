@@ -1,19 +1,10 @@
-package com.group.neusoft.moviesurfer.disordia.util;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.os.HandlerThread;
-import android.util.LruCache;
-import android.widget.ImageView;
+package com.group.neusoft.moviesurfer.cyf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by ttc on 2017/3/12.

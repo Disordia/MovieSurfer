@@ -4,15 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.ArraySet;
 
 import com.alibaba.fastjson.JSON;
 import com.group.neusoft.moviesurfer.FilmInfo;
+import com.group.neusoft.moviesurfer.cyf.NetHelper;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

@@ -95,6 +95,11 @@ public class LoginHelper{
     public void LogOut(){
         mTencent.logout(mContext);
         isLogin=false;
+        SharedPreferences tokenSaver=FilmSurferApplication.getContextObject().getSharedPreferences(Constant.TokenKey,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=tokenSaver.edit();
+        editor.clear();
+        editor.commit();
+        editor.commit();
     }
 
     public boolean IsUserLogin(){

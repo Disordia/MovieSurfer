@@ -1,4 +1,4 @@
-package com.group.neusoft.moviesurfer.disordia.util;
+package com.group.neusoft.moviesurfer.cyf;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.group.neusoft.moviesurfer.FilmInfo;
 import com.group.neusoft.moviesurfer.R;
+import com.group.neusoft.moviesurfer.disordia.util.DetailActivity;
+import com.group.neusoft.moviesurfer.disordia.util.LogUtil;
 import com.group.neusoft.moviesurfer.ofj.databaseHelper.FilmCollection;
 import com.group.neusoft.moviesurfer.ofj.databaseHelper.FilmHistory;
 

@@ -1,4 +1,4 @@
-package com.group.neusoft.moviesurfer.cyf;
+package com.group.neusoft.moviesurfer.juneljq;
 
 import android.content.Intent;
 import android.os.Bundle;

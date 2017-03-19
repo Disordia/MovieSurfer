@@ -18,7 +18,7 @@
        android:layout_centerInParent="true"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content">
-   <com.group.neusoft.moviesurfer.cyf.CircleImageView
+   <com.group.neusoft.moviesurfer.juneljq.CircleImageView
        android:id="@+id/user_header"
        app:border_width="2dp"
        app:border_color="@color/colorAccent"

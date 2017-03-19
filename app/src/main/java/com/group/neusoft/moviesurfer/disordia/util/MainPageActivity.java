@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.group.neusoft.moviesurfer.R;
 import com.group.neusoft.moviesurfer.coco.LoginHelper;
 import com.group.neusoft.moviesurfer.coco.SettingsActivity;
-import com.group.neusoft.moviesurfer.juneljq.NewFilmIntentService;
+import com.group.neusoft.moviesurfer.cyf.NewFilmIntentService;
 
 /**
  * Created by ttc on 2017/3/12.

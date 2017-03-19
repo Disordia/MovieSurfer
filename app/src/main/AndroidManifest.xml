@@ -49,7 +49,7 @@
         <activity android:name=".coco.SettingsActivity"
                   android:parentActivityName=".disordia.util.MainPageActivity">
         </activity>
-        <service android:name=".juneljq.NewFilmIntentService"></service>
+        <service android:name=".cyf.NewFilmIntentService"></service>
     </application>
 
 </manifest>

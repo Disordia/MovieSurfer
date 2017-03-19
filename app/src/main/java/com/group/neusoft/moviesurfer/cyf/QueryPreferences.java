@@ -1,4 +1,4 @@
-package com.group.neusoft.moviesurfer.juneljq;
+package com.group.neusoft.moviesurfer.cyf;
 
 import android.content.Context;
 import android.preference.PreferenceManager;

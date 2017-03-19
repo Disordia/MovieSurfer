@@ -10,7 +10,7 @@ import android.text.SpannableString;
 import android.text.style.ImageSpan;
 
 import com.group.neusoft.moviesurfer.R;
-import com.group.neusoft.moviesurfer.cyf.HistoryFragment;
+import com.group.neusoft.moviesurfer.juneljq.HistoryFragment;
 
 /**
  * Created by ttc on 2017/3/13.

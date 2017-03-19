@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
 import com.group.neusoft.moviesurfer.FilmInfo;
-import com.group.neusoft.moviesurfer.cyf.NetHelper;
+import com.group.neusoft.moviesurfer.juneljq.NetHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package com.group.neusoft.moviesurfer.juneljq;
+package com.group.neusoft.moviesurfer.cyf;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
 
 import static android.content.ContentValues.TAG;
 

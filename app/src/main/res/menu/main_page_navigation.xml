@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:title="MainPage"
+              android:id="@+id/main_navigation_home"
+              android:icon="@android:drawable/ic_menu_slideshow"/>
+        <item android:title="Collection"
+              android:id="@+id/main_navigation_collect"
+              android:icon="@android:drawable/btn_star_big_off"/>
+        <item android:title="History"
+              android:id="@+id/main_navigation_history"
+              android:icon="@android:drawable/ic_dialog_dialer"/>
+        <item android:title="Settings"
+              android:id="@+id/main_navigation_settings"
+              android:icon="@android:drawable/ic_menu_manage"/>
+
+    </group>
+    <item android:title="Other">
+        <menu>
+            <item android:title="Vote For us"
+                  android:id="@+id/main_navigation_vote"
+                  android:icon="@android:drawable/ic_menu_edit"/>
+            <item android:title="About"
+                  android:id="@+id/main_navigation_about"
+                  android:icon="@android:drawable/ic_menu_info_details"/>
+            <item android:title="Help"
+                  android:id="@+id/main_navigation_help"
+                  android:icon="@android:drawable/ic_menu_help"/>
+        </menu>
+    </item>
+</menu>

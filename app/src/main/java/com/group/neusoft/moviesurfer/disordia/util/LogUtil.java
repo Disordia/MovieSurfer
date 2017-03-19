@@ -8,6 +8,6 @@ import android.util.Log;
 
 public class LogUtil {
     public static void print(String info){
-        Log.d("ddd",info);
+        Log.e("ddd",info);
     }
 }

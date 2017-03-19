@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="unCollect"
+          android:icon="@drawable/ic_action_share"
+          android:id="@+id/detail.uncollect"
+          app:showAsAction="always"/>
+    <item android:title="Collection"
+          android:icon="@drawable/ic_action_unshare"
+          android:id="@+id/detail.collect"
+          app:showAsAction="always"/>
+    <item android:title="Share"
+          android:id="@+id/detail.share"
+          android:icon="@android:drawable/ic_menu_share"
+          />
+    <item android:title="Redirect to source"
+          android:icon="@android:drawable/ic_menu_send"
+          android:id="@+id/detail.redirect"
+          />
+</menu>
